@@ -1,0 +1,16 @@
+This CTE includes all the necessary columns for our subsequent analysis. In the second step, we execute a query that left joins this CTE with the 'total_amount_paid' table. 
+This query allows us to gain valuable insights into the distribution of top customers across different countries, 
+providing a deeper understanding of our customer base in each location.
+
+WITH top_customer_count_cte (customer_id,first_name,last_name,city_country) AS
+  (SELECT A.customer_id,
+  A.first_name,
+  A.last_name,
+  C.city,
+  D.country,
+  SUM (E.amount) AS total_amount_paid
+
+FROM customer A
+
+INNER JOIN payment E ON A.customer_id = E.customer_id
+INNER JOIN address B
