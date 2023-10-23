@@ -1,0 +1,22 @@
+This SQL query calculates summary statistics (average, minimum, maximum) and modes for various film attributes within each film category. The results provide insights into the distribution and patterns of these attributes within different categories.
+
+SELECT							
+AVG (A.rental_rate) AS avg_rental_rate,				
+MIN (A.rental_rate) AS min_rental_rate,				
+MAX (A.rental_rate) AS max_rental_rate,				
+AVG (A.rental_duration) AS avg_rental_duration,			
+MIN (A.rental_duration) AS min_rental_duration,			
+MAX (A.rental_duration) AS max_rental_duration,			
+AVG (A.replacement_cost) AS avg_replacement_cost,			
+MIN (A.replacement_cost) AS min_replacement_cost,			
+MAX (A.replacement_cost) AS max_replacement_cost,			
+MODE () WITHIN GROUP (ORDER BY A.title) AS modal_value_title,		
+MODE () WITHIN GROUP (ORDER BY A.rating) AS modal_value_rating,		
+MODE () WITHIN GROUP (ORDER BY A.release_year) AS modal_value_release_year,	
+MODE () WITHIN GROUP (ORDER BY A.language_id) AS modal_value_language_id,	
+MODE () WITHIN GROUP (ORDER BY A.special_features) AS modal_value_special_features,
+C.name							
+FROM film A						
+INNER JOIN film_category B ON A.film_id = B.film_id			
+INNER JOIN category C ON B.category_id = C.category_id			
+GROUP BY name						
