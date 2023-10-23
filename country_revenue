@@ -1,0 +1,23 @@
+In summary, this SQL query retrieves data about the total amount paid by customers for each film category in specific countries ('United States', 'China', 'India', 'Mexico', 'Japan'). 
+It provides insights into revenue distribution within these countries and categories
+
+SELECT G.name,				
+SUM (B.amount) AS total_amount_paid,				
+country				
+  
+FROM customer A				
+
+INNER JOIN payment B ON A.customer_id = B.customer_id				
+INNER JOIN rental C ON B.rental_id = C.rental_id				
+INNER JOIN inventory D ON C.inventory_id = D.inventory_id				
+INNER JOIN film E ON D.film_id = E.film_id				
+INNER JOIN film_category F ON E.film_id = F.film_id				
+INNER JOIN category G ON F.category_id = G.category_id				
+INNER JOIN address H ON A.address_id = H.address_id				
+INNER JOIN city I ON H.city_id = I.city_id				
+INNER JOIN country J ON I.country_id = J.country_id				
+WHERE country IN ('United States', 'China', 'India', 'Mexico', 'Japan')		
+
+GROUP BY name, country				
+  
+ORDER BY total_amount_paid DESC				
