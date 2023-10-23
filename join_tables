@@ -1,0 +1,14 @@
+This SQL query retrieves data about film categories, the number of films within each category and rating combination, and the corresponding ratings. 
+The results provide insights into how many films fall into each combination and help identify categories and ratings with varying levels of film count.
+
+SELECT C.name,			
+COUNT (A.film_id) AS count_of_films,	
+A.rating
+				
+FROM film A
+			
+INNER JOIN film_category B ON A.film_id = B.film_id
+INNER JOIN category C ON B.category_id = C.category_id
+
+GROUP BY name, rating			
+ORDER BY count_of_films		
